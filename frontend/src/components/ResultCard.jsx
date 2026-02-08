@@ -6,7 +6,7 @@ export default function ResultCard({ number, count }) {
   return (
     <div
       onClick={() => navigate(`/details/${number}`)}
-      className="bg-white rounded-xl shadow-md p-5 text-center cursor-pointer
+      className="bg-white rounded-xl shadow-md p-3 text-center cursor-pointer
                  hover:shadow-xl hover:scale-105 transition"
     >
       <div className="text-2xl font-bold text-blue-600">{number}</div>

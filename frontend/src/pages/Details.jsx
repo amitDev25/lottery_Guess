@@ -15,6 +15,13 @@ export default function Details() {
       .finally(() => setLoading(false));
   }, [number]);
 
+  function formatDate(dateStr) {
+  if (!dateStr) return "";
+  const [y, m, d] = dateStr.split("-");
+  return `${d}-${m}-${y}`;
+}
+
+
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-5xl mx-auto">
@@ -49,7 +56,7 @@ export default function Details() {
                     className="border-b hover:bg-gray-50"
                   >
                     <td className="px-4 py-3">{index + 1}</td>
-                    <td className="px-4 py-3">{row.Date}</td>
+                    <td className="px-4 py-3">{formatDate(row.Date)}</td>
                     <td className="px-4 py-3 font-semibold">{row.Slot}</td>
                     <td className="px-4 py-3">{row.Column}</td>
                   </tr>
