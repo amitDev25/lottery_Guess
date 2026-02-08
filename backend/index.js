@@ -114,6 +114,8 @@ app.get('/api/details/:number', async (req, res) => {
 });
 
 
+app.get("/health", (req, res) => { res.send("OK"); });
+
 
 
 app.listen(PORT, () =>
