@@ -1,5 +1,6 @@
 const API_BASE = import.meta.env.VITE_API_URL;
 
+
 export async function searchNumbers(prefix) {
   const res = await fetch(`${API_BASE}/api/search/${prefix}`);
   if (!res.ok) throw new Error("API Error");

@@ -1,7 +1,7 @@
 const cors = require('cors');
 const express = require('express');
 const app = express();
-app.use(cors({ origin: 'http://localhost:5173' }));
+app.use(cors({ origin: ['http://localhost:5173', 'https://lotterynumberfinder.vercel.app'] }));
 require("dotenv").config();
 const PORT = process.env.PORT || 4000;
 
