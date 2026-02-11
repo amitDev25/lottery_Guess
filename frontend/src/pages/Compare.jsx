@@ -98,7 +98,7 @@ export default function Compare() {
     return (
         <div className="min-h-screen bg-gray-100 px-4 py-8">
             <h1 className="text-3xl font-bold text-center mb-6">
-                Compare Results
+                Compare Date
             </h1>
 
             {/* 📅 Date Inputs */}
@@ -107,7 +107,7 @@ export default function Compare() {
                     Select 2 or 3 Dates
                 </h2>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="grid w-full grid-cols-1 sm:grid-cols-3 gap-4">
                     {dates.map((date, index) => (
                         <input
                             key={index}
@@ -116,7 +116,7 @@ export default function Compare() {
                             onChange={e =>
                                 handleDateChange(index, e.target.value)
                             }
-                            className="border px-4 py-2 rounded-lg"
+                            className="border w-full px-4 py-2 rounded-lg"
                         />
                     ))}
                 </div>
