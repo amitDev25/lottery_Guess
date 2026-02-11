@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import SearchBar from "../components/SearchBar";
 import { fetchRank, fetchRankByPrefix } from "../services/api";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +12,8 @@ export default function Rank() {
     const [error, setError] = useState(null);
 
     const navigate = useNavigate();
+    const contentRefs = useRef({});
+
 
     useEffect(() => {
         const storedRankData = localStorage.getItem("rankData");
@@ -162,13 +164,14 @@ export default function Rank() {
 
                             {/* 🔹 Collapsible Content */}
                             <div
-                                className={`
-                                    overflow-hidden
-                                    transition-all
-                                    duration-600
-                                    ease-in-out
-                                    ${expanded[pos] ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"}
-                                `}
+                                ref={(el) => (contentRefs.current[pos] = el)}
+                                style={{
+                                    height: expanded[pos]
+                                        ? contentRefs.current[pos]?.scrollHeight + "px"
+                                        : "0px",
+                                    opacity: expanded[pos] ? 1 : 0,
+                                }}
+                                className="overflow-hidden transition-all duration-500 ease-in-out"
                             >
                                 <div className="pt-2">
                                     {!rankData[pos] || rankData[pos].length === 0 ? (
@@ -195,6 +198,7 @@ export default function Rank() {
                                     )}
                                 </div>
                             </div>
+
 
                         </div>
                     ))}
