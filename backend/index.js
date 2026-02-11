@@ -1,7 +1,7 @@
 const cors = require('cors');
 const express = require('express');
 const app = express();
-app.use(cors({ origin: ['http://localhost:5173', 'https://lotterynumberfinder.vercel.app'] }));
+app.use(cors({ origin: ['http://localhost:5173', 'https://dndirector.vercel.app'] }));
 require("dotenv").config();
 const PORT = process.env.PORT || 4000;
 
@@ -40,7 +40,7 @@ app.get('/api/sheet', async (req, res) => {
         data.sort((a, b) => {
             const dateDiff = new Date(b.Date) - new Date(a.Date);
             if (dateDiff !== 0) return dateDiff;
-                        
+
             return (slotOrder[a.Slot] || 99) - (slotOrder[b.Slot] || 99);
         });
         res.json(data);
@@ -112,6 +112,80 @@ app.get('/api/details/:number', async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+
+app.get('/api/rank', async (req, res) => {
+    const positions = ['1st', '2nd', '3rd', '4th', '5th'];
+
+    try {
+        const rows = await fetchRows();
+        const result = {};
+
+        positions.forEach(pos => {
+            const countMap = {};
+
+            rows.forEach(row => {
+                if (!row[pos]) return;
+
+                row[pos]
+                    .split('\n')
+                    .map(n => n.trim())
+                    .filter(Boolean)
+                    .forEach(num => {
+                        countMap[num] = (countMap[num] || 0) + 1;
+                    });
+            });
+
+            result[pos] = Object.entries(countMap)
+                .filter(([, Count]) => Count > 1)
+                .map(([Number, Count]) => ({ Number, Count }))
+                .sort((a, b) => b.Count - a.Count);
+        });
+
+        res.json(result);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+
+app.get('/api/rank/:prefix', async (req, res) => {
+    const prefix = req.params.prefix.trim();
+    const positions = ['1st', '2nd', '3rd', '4th', '5th'];
+
+    try {
+        const rows = await fetchRows();
+        const result = {};
+
+        positions.forEach(pos => {
+            const countMap = {};
+
+            rows.forEach(row => {
+                if (!row[pos]) return;
+
+                row[pos]
+                    .split('\n')
+                    .map(n => n.trim())
+                    .filter(Boolean)
+                    .forEach(num => {
+                        if (num.startsWith(prefix)) {
+                            countMap[num] = (countMap[num] || 0) + 1;
+                        }
+                    });
+            });
+
+            result[pos] = Object.entries(countMap)
+                .filter(([, Count]) => Count > 1)
+                .map(([Number, Count]) => ({ Number, Count }))
+                .sort((a, b) => b.Count - a.Count);
+        });
+
+        res.json(result);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+
 
 
 app.get("/health", (req, res) => { res.send("OK"); });
