@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Details from "./pages/Details";
 import ResultDetails from "./pages/ResultDetails";
 import Rank from "./pages/Rank";
+import Compare from "./pages/Compare";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/details/:number" element={<Details />} />
         <Route path="/result/:date/:slot" element={<ResultDetails />} />
         <Route path="/rank" element={<Rank />} />
+        <Route path="/compare" element={<Compare />} />
       </Routes>
     </BrowserRouter>
   );
