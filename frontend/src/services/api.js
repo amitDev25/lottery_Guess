@@ -19,3 +19,15 @@ export async function fetchSheet() {
   if (!res.ok) throw new Error("Failed to fetch sheet");
   return res.json();
 }
+
+export async function fetchRank() {
+  const res = await fetch(`${API_BASE}/api/rank`);
+  if (!res.ok) throw new Error("Failed to fetch rank");
+  return res.json();
+}
+
+export async function fetchRankByPrefix(prefix) {
+  const res = await fetch(`${API_BASE}/api/rank/${prefix}`);
+  if (!res.ok) throw new Error("Failed to fetch rank by prefix");
+  return res.json();
+}

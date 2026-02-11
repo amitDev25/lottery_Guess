@@ -174,7 +174,7 @@ app.get('/api/rank/:prefix', async (req, res) => {
             });
 
             result[pos] = Object.entries(countMap)
-                .filter(([, Count]) => Count > 1)
+                // .filter(([, Count]) => Count > 1)
                 .map(([Number, Count]) => ({ Number, Count }))
                 .sort((a, b) => b.Count - a.Count);
         });

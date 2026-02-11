@@ -1,15 +1,19 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Details from "./pages/Details";
 import ResultDetails from "./pages/ResultDetails";
+import Rank from "./pages/Rank";
 
 function App() {
   return (
     <BrowserRouter>
+    <Navbar/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/details/:number" element={<Details />} />
         <Route path="/result/:date/:slot" element={<ResultDetails />} />
+        <Route path="/rank" element={<Rank />} />
       </Routes>
     </BrowserRouter>
   );
