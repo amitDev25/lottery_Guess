@@ -161,8 +161,16 @@ export default function Rank() {
                             </div>
 
                             {/* 🔹 Collapsible Content */}
-                            {expanded[pos] && (
-                                <>
+                            <div
+                                className={`
+                                    overflow-hidden
+                                    transition-all
+                                    duration-600
+                                    ease-in-out
+                                    ${expanded[pos] ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"}
+                                `}
+                            >
+                                <div className="pt-2">
                                     {!rankData[pos] || rankData[pos].length === 0 ? (
                                         <p className="text-gray-500">
                                             No repeated numbers
@@ -173,24 +181,21 @@ export default function Rank() {
                                                 <div
                                                     onClick={() => navigate(`/details/${item.Number}`)}
                                                     key={index}
-                                                    className="bg-gray-100 rounded-lg p-3 text-center hover:shadow transition"
+                                                    className="bg-gray-100 rounded-lg p-3 text-center hover:shadow transition cursor-pointer"
                                                 >
-                                                    {/* Smaller on mobile, bigger on sm+ */}
                                                     <div className="font-mono font-semibold text-sm sm:text-lg">
                                                         {item.Number}
                                                     </div>
-
-                                                    {/* Smaller on mobile */}
                                                     <div className="text-xs sm:text-sm text-gray-600">
-                                                        Count: {item.Count}
+                                                        {item.Count}
                                                     </div>
                                                 </div>
                                             ))}
                                         </div>
-
                                     )}
-                                </>
-                            )}
+                                </div>
+                            </div>
+
                         </div>
                     ))}
                 </div>
