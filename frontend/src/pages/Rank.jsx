@@ -149,8 +149,8 @@ export default function Rank() {
                             className="bg-white rounded-xl shadow p-5"
                         >
                             {/* 🔹 Header with toggle */}
-                            <div className="flex justify-between items-center mb-4">
-                                <h2 className="text-xl font-bold text-gray-700">
+                            <div onClick={() => toggleExpand(pos)} className="flex justify-between items-center mb-4">
+                                <h2  className="text-xl font-bold text-gray-700">
                                     {pos} Position
                                 </h2>
 
